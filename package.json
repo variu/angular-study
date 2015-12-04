@@ -1,0 +1,23 @@
+{
+  "name": "angular-study",
+  "version": "1.0.0",
+  "description": "angular 스터디프로젝트",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/variu/angular-study.git"
+  },
+  "author": "variu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/variu/angular-study/issues"
+  },
+  "homepage": "https://github.com/variu/angular-study#readme",
+  "dependencies": {
+    "express": "^4.13.3",
+    "path": "^0.12.7"
+  }
+}
