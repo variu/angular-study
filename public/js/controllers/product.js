@@ -2,7 +2,7 @@
 
 
 // 원래는 module 호출 시에 var app = 같이 줘야 추가 데이터 등 작업가능하지만 여기선 데이터가 고정이니 패스한다.
-angular.module('product', [])
+angular.module('product', ['customFilter'])	// 외부 모듈을 쓸 때는 배열안에 추가해준다.
 .controller('productCtrl', function($scope){	// $scope는 전역에서 사용할 수 있는 scope
 	$scope.data = 
 	{
