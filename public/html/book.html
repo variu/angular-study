@@ -17,8 +17,8 @@
 	<div class="panel panel-default row" ng-controller="bookListCtrl">
 		<div class="col-xs-3">
 			<a ng-click="selectGrade()" class="btn btn-block btn-default btn-lg">Home</a>
-			<a ng-click="selectGrade(item)" ng-repeat="item in data.books | orderBy: 'grade' | limit:'grade'" 
-				class="btn btn-block btn-default btn-lg"> {{item}} </a>
+			<a ng-click="selectGrade(item)" ng-repeat="item in data.books | orderBy: 'grade' :scopeOrderBy| limit:'grade'" 
+				class="btn btn-block btn-default btn-lg"> {{toStar(item)}} </a>
 			<a ng-click="selectOrder()" class="btn btn-block btn-default btn-lg">정렬</a>
 			<a ng-click="changeStar()" class="btn btn-block btn-default btn-lg">*만들기</a>
 		</div>

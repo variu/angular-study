@@ -5,11 +5,11 @@ angular.module('book')
 	$scope.scopeStar = false;		// 별로 만들건지 말건지
 
 	$scope.selectGrade = function(newGrade){
-		selectedGrade = Math.floor(newGrade);		
+		selectedGrade = newGrade==undefined?null:parseInt(newGrade);		
 	}
 
 	$scope.gradeFilterFn = function(book){
-		return selectedGrade == null || Math.floor(book.grade) == selectedGrade;
+		return selectedGrade == null || parseInt(book.grade) == selectedGrade;
 	}
 
 	$scope.selectOrder = function(){
@@ -22,6 +22,21 @@ angular.module('book')
 
 	$scope.changeStar = function(){
 		$scope.scopeStar = !$scope.scopeStar;
+	}
+
+	$scope.toStar = function(num){
+		if($scope.scopeStar){
+			var star = '';
+			for(var i = 0; i < num; i++ ){
+				star = star.concat("*");		
+			}
+
+			return star;	
+		}
+		else{
+			return num;
+		}
+		
 	}
 
 });
