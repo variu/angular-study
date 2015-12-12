@@ -18,4 +18,5 @@ angular.module('product', ['customFilter'])	// 외부 모듈을 쓸 때는 배�
 		    {category : 'BasketBall', description:'겨울용', name:'이너웨어', price:'46000', id:9}
 		]
 	};
+
 });
