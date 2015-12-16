@@ -37,7 +37,37 @@ angular.module('hello', [])
 		$scope.items.splice(index,1);
 	}
 
+	$scope.insert = function(){
+		if(!angular.equals($scope.input.title, '') || 
+		   angular.isNumber($scope.input.count) ||
+		   angular.isNumber($scope.input.price)		
+		){
+			$scope.items.push($scope.input);
+			$scope.input = null;
+		}
+	}
 
+	$scope.getSum = function(items){
+		var sum = 0;
+		for(var i = 0; i < items.length; i++){
+			var obj = items[i];
+			sum += (obj.count * obj.price);
+		}
+
+		return sum;
+	}
+
+	$scope.getDiscount = function(sum){
+		var discount = 0;
+
+		if(angular.isNumber(sum)){
+			if(sum > 20000){
+				discount = sum/10;
+			}
+		}
+
+		return discount;
+	}
 
 
 
