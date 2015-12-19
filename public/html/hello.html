@@ -23,7 +23,7 @@
         <span>이름: <input type="text" ng-model="input.title "/></span>
         <span>수량: <input type="text" ng-model="input.count"/></span>
         <span>가격: <input type="text" ng-model="input.price"/></span> 
-        <button ng-click="insert()">추가</button>       
+        <button ng-click="insert(input)">추가</button>       
     </div>
     <br>
     <div ng-repeat="item in items">
@@ -35,6 +35,14 @@
         <button ng-click="delete($index)">삭제</button>
     </div>
     <br>
+
+    <!-- 아래와 같이 쓰면 정석적인 코드이긴 하나 메서드 호출이 많기 때문에 좋지 않은 코드이다.
+            watch 기능을 쓰면 해결가능
+
+            <div>전체 금액 : {{bill.totalPrice | number:0}}원</div>
+            <div>할인 금액 : {{bill.discountPrice | number:0}}원</div>
+            <div>결제 금액 : {{bill.payPrice | number:0}}원</div>
+     -->
     <div>전체 금액 : {{getSum(items) | number:0}}원</div>
     <div>할인 금액 : {{getDiscount(getSum(items)) | number:0}}원</div>
     <div>결제 금액 : {{getSum(items)-getDiscount(getSum(items)) | number:0}}원</div>

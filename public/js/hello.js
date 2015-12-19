@@ -37,13 +37,17 @@ angular.module('hello', [])
 		$scope.items.splice(index,1);
 	}
 
-	$scope.insert = function(){
-		if(!angular.equals($scope.input.title, '') || 
-		   angular.isNumber($scope.input.count) ||
-		   angular.isNumber($scope.input.price)		
+	// 최초에는 input 파라미터를 안받음.
+	// 파라미터를 받아서 insert 가 자기 기능만 충실하게 하는 코드가 더 좋다.
+	$scope.insert = function(input){
+		// 앞으로는 이런 부분에 undefined 까지 더 걸어주자 
+		if(!angular.equals(input.title, '') || 
+		   angular.isNumber(input.count) ||
+		   angular.isNumber(input.price)		
 		){
 			$scope.items.push($scope.input);
 			$scope.input = null;
+			// $scope.input.refresh();
 		}
 	}
 
