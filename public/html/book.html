@@ -16,15 +16,17 @@
 	</div>
 	<div class="panel panel-default row" ng-controller="bookListCtrl">
 		<div class="col-xs-3">
-			<a ng-click="selectGrade()" class="btn btn-block btn-default btn-lg">Home</a>
+			<a ng-click="selectGrade()" class="btn btn-block btn-default btn-lg" ng-class="getGradeClass()">Home</a>
 			<a ng-click="selectGrade(item)" ng-repeat="item in data.books | orderBy: 'grade' :scopeOrderBy| limit:'grade'" 
 				class="btn btn-block btn-default btn-lg"> {{toStar(item)}} </a>
 			<a ng-click="selectOrder()" class="btn btn-block btn-default btn-lg">정렬</a>
-			<a ng-click="changeStar()" class="btn btn-block btn-default btn-lg">*만들기</a>
+			<a ng-click="changeStar()" class="btn btn-block btn-default btn-lg"
+				>*만들기</a>
 		</div>
 		<div class="col-xs-8">
-			<div class="well" ng-repeat="item in data.books | orderBy:'grade':scopeOrderBy 
-							| filter:gradeFilterFn ">
+			<div class="well" ng-click="show(item)" 
+				ng-repeat="item in data.books | orderBy:'grade':scopeOrderBy 
+							| filter:gradeFilterFn  | range:selectedPage:pageSize ">
 				<h3>
 					<strong>{{item.name}}</strong>
 					<span class="pull-right label label-primary">
@@ -33,9 +35,16 @@
 				</h3>
 				<span>{{item.grade}} 점</span>
 					
-				
 			</div>
 			<span class="lead">{{item.description}}</span>
+			<div class="pull-right btn-group">
+				<a ng-repeat="item in data.books | filter:categoryFilterFn | pageCount : pageSize "
+					ng-click="selectPage($index+1)" class="btn btn-default"
+					ng-class="getPageClass($index+1)" 
+				>
+					{{$index+1}}
+				</a>
+			</div>
 		</div>
 	</div>
 
