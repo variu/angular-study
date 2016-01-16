@@ -5,7 +5,7 @@
 */
 
 angular.module('hello', [])
-.controller('HelloController', function($scope, $filter){
+.controller('HelloController', function($scope, $filter, $http, $timeout){
 	$scope.hello = 
 	{
 		msg : 'hello'
@@ -86,5 +86,26 @@ angular.module('hello', [])
 		}
 	}
 	*/
+
+	// 비동기 테스트
+	$scope.result = false;
+	$scope.showQuiz = function(){
+		$scope.result = true;
+		var promiseObj = $timeout(function(){
+			return $scope.answer;
+		}, 3000);
+
+		promiseObj.then(function(input){
+			if(input == 39){
+				$scope.result = true;
+				$scope.msg = "정답";
+			}else{
+				$scope.result = false;
+				$scope.msg = "땡";
+			}
+			$scope.info = "다시 시작하려면 refresh 해주세요.";
+
+		});
+	}
 
 });
