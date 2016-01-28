@@ -61,31 +61,73 @@ var moneyBook = [
     {date: '2016. 1. 12. 오전 11:45:19', description : '점심식사', money :5500}
 ];
 app.get('/money-book', function(req, res){
-    	res.sendFile(path.join(__dirname + '/public/html/moneyBook.html'));
+    res.sendFile(path.join(__dirname + '/public/html/moneyBook.html'));
 });
 
 app.get('/money-book/history', function(req, res){
-    	res.send(moneyBook);
+    res.send(moneyBook);
 });
 
 app.post('/money-book/history', function(req, res, next){
-    	var body = req.body;
-   	console.log('req body : ' + JSON.stringify(body));
-    	if( !body.date ||
-        	    !body.description ||
-        	    !body.money){
+    var body = req.body;
+    console.log('req body : ' + JSON.stringify(body));
+    if( !body.date ||
+        !body.description ||
+        !body.money){
 
-        		next(new Error('빈값이 있다!'));
-    	}else{
-        		moneyBook.push(body);
-        		res.json(true);
-    	}
+        next(new Error('빈값이 있다!'));
+    }else{
+        moneyBook.push(body);
+        res.json(true);
+    }
+});
+
+// product 장바구니 추가
+var secretKey = 12345;
+app.get('/product/secret', function(req, res){
+    secretKey = Math.floor((Math.random()*99999) + 10000);
+    console.log('current secret key : ' + secretKey);
+    res.json(secretKey);
+});
+
+var limitMoney = 100000;
+app.post('/product/buy', function(req, res){
+    var list = req.body.list,
+          key = req.body.secretKey,
+          sum = 0;
+
+    if(key != secretKey){
+        console.log('request key : ' + key);
+        res.json("secret key가 틀렸습니다.");
+    }else{
+        for(var i=0;i<list.length;i++){
+            sum += parseInt(list[i].price);
+        }
+
+        res.json(sum<=limitMoney? '구매 성공' : '금액이 초과하였습니다.');
+    }
 });
 
 
+//외부 API라고 가정
+app.get('/name', function(req, res){
+    var dice = Math.random() * 5 +1;
+    res.send(dice>=3? 'hello' : 'world');
+});
 
+app.get('/gender/:name', function(req, res){
+    if(!req.params.name){
+                res.send(false);
+    }
+    res.send(req.params.name === 'hello'? 'male' : 'female');
+});
 
-
+app.get('/regist/:gender', function(req, res){
+    if(!req.params.gender){
+                res.send(false);
+    }
+    res.send(req.params.gender === 'male'? '13579' : '24680');
+});
 
 app.listen(8080);
 console.log('Express Listening on port 8080...');

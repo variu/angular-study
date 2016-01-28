@@ -2,7 +2,7 @@
 angular.module('product')
 .constant('productListActiveClass', 'btn-primary')		// java의 static final 과 같이 상수화 시킨 변수
 .constant('productListPageCount', 3)
-.controller('productListCtrl', function($scope, $filter, productListActiveClass, productListPageCount){
+.controller('productListCtrl', function($scope, $filter, $http, $q, productListActiveClass, productListPageCount){
 
 	// 카테고리 관련
 	var selectedCategory = null;
@@ -34,4 +34,38 @@ angular.module('product')
 	}
 
 
-});
+	// 장바구니 관련
+	$scope.totalPrice = 0;
+
+	$scope.putToCart = function(product){
+		var object = {
+			name : product.name,
+			price : product.price
+		};
+		$scope.data.cart.push(object);
+		$scope.totalPrice += parseInt(product.price);
+	}
+
+	$scope.buy = function(){
+		var data = {
+                		list : $scope.data.cart,
+                		secretKey : 0
+           		};
+
+            		$http.get('/product/secret')
+                	.then(function(response){
+                    		return response.data;
+
+                	}).then(function(secretKey){
+                    		data.secretKey = secretKey;
+                    		$http.post('/product/buy', data)
+                        		.then(function(response){
+                                		alert(response.data);
+                            	},
+                            	function(response){
+                                		alert('구매 실패!' + response.status);
+                            	});
+            		});
+	}
+	
+})
