@@ -1,6 +1,6 @@
 angular.module('book')
 .constant('bookListActiveClass', 'btn-success')		
-.constant('bookListPageCount', 2)
+.constant('bookListPageCount', 4)
 .controller('bookListCtrl', function($scope, $filter, bookListActiveClass, bookListPageCount) {
 	var selectedGrade = null;
 	$scope.scopeOrderBy = false;	// true : asc , false : desc
@@ -55,7 +55,7 @@ angular.module('book')
 	}
 
 	// 등급에 따른 클래스 이벤트
-	$scope.getPageClass = function(page){
+	$scope.getGradeClass = function(page){
 		return $scope.selectedPage == page? bookListActiveClass : '';
 	};
 
