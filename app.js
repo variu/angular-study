@@ -129,5 +129,11 @@ app.get('/regist/:gender', function(req, res){
     res.send(req.params.gender === 'male'? '13579' : '24680');
 });
 
+
+app.get('/example', function(req, res){
+    res.sendFile(path.join(__dirname + '/public/html/example.html'));
+});
+
+
 app.listen(8080);
 console.log('Express Listening on port 8080...');
