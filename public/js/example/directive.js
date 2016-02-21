@@ -71,7 +71,24 @@ angular.module('example')
         		     '<li>{{item.name}}</li>'+
         		     '</ul></div>'
         }
+    })
+    .directive('templateList', function(){
+        return {
+        	restrict : 'A', // E : element, A : attribute, C : class, M : comment
+        	// templateUrl : '../../html/exampleTemplate.html'
+        	templateUrl : function(el, attrs){
+        		// 바로 위 directive인 products에서 scope에
+        		// products 데이터를 넣어주므로 해당 데이터를 활용하자
+        		var defaultPath = '../../html/';
+        		var templateName = (attrs['template'] === 'table')?
+        			'exampleTableTemplate.html':'exampleTemplate.html';
+        		return defaultPath + templateName;
+        	},
+        	// 속성을 적용한 태그 자체를 바꾼다. 
+        	// 이때,태그 자체 외의 속성은 그대로 두기 때문에 공통모듈로 만들기 용이하다
+        	replace : true	
+
+        	// scope : true 이것은 해당 태그 내에서만 사용할 수 있는 scope 영역을 만든다.
+
+        }
     });
-
-
-    ;

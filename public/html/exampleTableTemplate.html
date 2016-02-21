@@ -1,0 +1,18 @@
+<table class="table table-bordered table-hover">
+	<thead>
+		<tr>
+			<th>이름</th>
+			<th>가격</th>
+		</tr>
+	</thead>
+	<tbody>
+		<colgroup>
+			<col width="40%"></col>
+			<col width="*"></col>
+		</colgroup>
+		<tr ng-repeat="item in products">
+			<td>{{item.name}}</td>
+			<td>{{item.price | number : 0 }}원</td>
+		</tr>
+	</tbody>
+</table>
