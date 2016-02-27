@@ -130,10 +130,14 @@ app.get('/regist/:gender', function(req, res){
 });
 
 
+// 
 app.get('/example', function(req, res){
     res.sendFile(path.join(__dirname + '/public/html/example.html'));
 });
 
 
-app.listen(8080);
-console.log('Express Listening on port 8080...');
+// heroku는 포트가 자동 할당이 되기 때문에 아래와 같이 동적으로 작동되게 변경
+app.listen(process.env.PORT || 8080, function(){
+    console.log("Express server listening on port %d in %s mode",
+        this.address().port, app.settings.env);
+});
